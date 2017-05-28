@@ -12,7 +12,7 @@ target/
 *.class
 
 ##########################
-#Linux Specific GitIgnore#
+#Linux
 ##########################
 .*
 !.gitignore
@@ -46,7 +46,15 @@ Desktop.ini
 .Spotlight-V100
 .Trashes
  
- 
+# NetBeans specific
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml 
+
 ######################
 # Eclipse
 ######################
