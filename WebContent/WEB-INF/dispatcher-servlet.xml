@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 	xmlns:tx="http://www.springframework.org/schema/tx" xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+    xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+
+	<!-- Escaneo de componentes -->
+	<context:component-scan base-package="com.proyecto.datajpa" />
+
+	<!-- Anotaciones MVC -->
+	<mvc:annotation-driven />
+	
+	<!-- Revisar -->
+	<mvc:view-controller path="/" view-name="hello"/>
+	
+	<!-- Resolutor de vistas (controladores a vistas) -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- Este bean nos permitirá usar properties para hacer validaciones -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="/WEB-INF/messages" />
+	</bean>
+
+
+	<!-- Configuracion Base de Datos -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.h2.Driver" />
+		<property name="url" value="jdbc:h2:./ejemplo" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+	</bean>
+
+	<!-- Configuracion del adaptador JPA hibernate -->
+	<bean id="jpaVendorAdapter"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="showSql" value="true" />
+		<property name="generateDdl" value="true" />
+		<property name="database" value="H2" />
+	</bean>
+
+	<!-- Configuracion del Entity Manager -->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+
+	<!-- spring based scanning for entity classes -->
+		<property name="packagesToScan" value="com.proyecto.datajpa.model" />
+	</bean>
+
+	<!-- Configure the transaction manager bean -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<!-- Enable annotation driven transaction management -->
+	<tx:annotation-driven />
+
+	<!-- Clases que serán repositorios de datos -->
+	<jpa:repositories base-package="com.proyecto.datajpa.repo"></jpa:repositories>
+
+
+</beans>
