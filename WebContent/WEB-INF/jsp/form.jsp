@@ -21,8 +21,9 @@
 	<script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
 
 
-	
-	<form:form method="POST" action="addStudent" modelAttribute="studentForm">		 
+	<!-- utilizamos el mismo formulario para agregar y editar  -->
+	<form:form method="POST" action="${not empty op ? '../edit' : 'addStudent'}" modelAttribute="studentForm">
+			<form:hidden path="id"/>		 
     		<form:label path="nombre">Nombre</form:label>
     		<form:input path="nombre"/>
   		<br>
