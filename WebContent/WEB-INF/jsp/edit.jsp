@@ -14,8 +14,8 @@
 <body>
 
 	
-	<!-- le agregue un slash antes del addStudent-->
-	<form:form method="POST" action="${not empty op ? ´../edit´ : ´addStudent´}" modelAttribute="studentForm">
+	<!-- ${not empty op ? ´../edit´ : ´addStudent´}-->
+	<form:form method="POST" action="edit" modelAttribute="studentForm">
 		<form:hidden path="id"/>		 
     		<form:label path="nombre">Nombre</form:label>
     		<form:input path="nombre"/>
@@ -26,6 +26,7 @@
   		<input type="submit" value="yeah" class="btn btn-primary">
 	</form:form>
 
+	
 
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

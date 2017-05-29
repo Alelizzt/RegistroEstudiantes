@@ -83,6 +83,6 @@ public class ControladorEstudiante {
 		
 		studentRepository.delete(id);
 		
-		return "redirect;/list";
+		return "redirect:/list";
 	}
 }
